@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, render_template
 from database import load_jobs
+import os
 
 app = Flask(__name__)
+
+app.config['DB_CONNECTION_STR'] = os.environ.get('DB_CONNECTION_STR')
 
 # JOBS = [
 #     {
