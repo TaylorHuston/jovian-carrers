@@ -1,4 +1,3 @@
-import sqlalchemy
 from sqlalchemy import create_engine, text
 
 # Bad that this is in plain text, following along with tutorial though
@@ -11,19 +10,23 @@ engine = create_engine(db_connection_string,
                            }
                        })
 
-with engine.connect() as conn:
-    result = conn.execute(text("SELECT * FROM jobs"))
-    print(type(result))
-    print(result)
-    result_all = result.all()
-    print(type(result_all))
-    print(result_all)
-    print(type(result_all[0]))
-    print(dict(result_all[0]))
+# with engine.connect() as conn:
+#     result = conn.execute(text("SELECT * FROM jobs"))
+#     print(type(result))
+#     print(result)
+#     result_all = result.all()
+#     print(type(result_all))
+#     print(result_all)
+#     print(type(result_all[0]))
+#     print(dict(result_all[0]))
 
-    result_all_dicts = [dict(row) for row in result_all]
+#     result_all_dicts = [dict(row) for row in result_all]
 
-    print(result_all_dicts)
+#     print(result_all_dicts)
 
- 
+def load_jobs():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM jobs"))
 
+        jobs = [dict(row) for row in result.all()]
+    return jobs
