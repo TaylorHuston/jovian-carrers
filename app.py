@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from database import load_jobs
 import os
 
@@ -53,6 +53,11 @@ def show_job(id):
         return render_template('jobpage.html', job=job)
     else:
         return "Job not found", 404
+    
+@app.post("/job/<id>/apply")
+def apply_to_jobs(id):
+    data = request.form
+    return render_template('application_submitted.html', application=data)
 
 # If ran from the command line with python3 app.py
 if __name__ == "__main__":
