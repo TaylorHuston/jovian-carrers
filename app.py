@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template, request
-from database import load_jobs
+from database import load_jobs, add_application_to_db
 import os
 
 app = Flask(__name__)
@@ -57,6 +57,7 @@ def show_job(id):
 @app.post("/job/<id>/apply")
 def apply_to_jobs(id):
     data = request.form
+    add_application_to_db(id, data)
     return render_template('application_submitted.html', application=data)
 
 # If ran from the command line with python3 app.py
