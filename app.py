@@ -45,6 +45,15 @@ def list_jobs():
     all_jobs = load_jobs()
     return jsonify(all_jobs)
 
+@app.route("/job/<id>")
+def show_job(id):
+    all_jobs = load_jobs()
+    job = next((job for job in all_jobs if job['id'] == int(id)), None)
+    if job:
+        return render_template('jobpage.html', job=job)
+    else:
+        return "Job not found", 404
+
 # If ran from the command line with python3 app.py
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
